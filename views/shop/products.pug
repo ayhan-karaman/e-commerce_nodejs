@@ -1,0 +1,16 @@
+extends ../layouts/main-layout.pug
+include ../mixins/product-card
+block content 
+    
+    .row.mt-2 
+        .col-md-3  
+            include ../includes/menu
+        .col-md-9.mt-4
+            .row.align-items-arround
+                if products.length > 0
+                    each product in products 
+                        +productCard(product)
+                else 
+                    .alert.alert-danger.text-center Not Product
+     
+

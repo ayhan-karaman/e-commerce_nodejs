@@ -1,0 +1,37 @@
+extends ../layouts/main-layout
+block content
+    .row.d-flex.justify-content-center.my-5 
+        .col-md-6
+            form(action="/admin/update-product", method="post" enctype="multipart/form-data")
+                input(type="hidden", name="_csrf", value=`${csrfToken}`)
+                input(type="hidden", name="id", value=`${product.id}`)
+                .form-group.row 
+                    label.form-label(for="productName") Product Name
+                    .col-sm-10 
+                        input(type="text", value=`${product.productName}` name="productName").form-control
+                
+                    .row
+                        label().mt-3 Category
+                        each category in categories
+                            .col-sm-3.mt-3.mb-3
+                                .form-check
+                                    input(type="checkbox" name="categoryId" class="form-check-input" value=`${category._id}`
+                                    checked = category.selected)                                
+                                    label.form-check-label #{category.name}
+
+                .form-group.row 
+                    label.form-label(for="price") Price
+                    .col-sm-10  
+                        input(type="text", value=`${product.price}` name="price").form-control
+                .form-group.row 
+                    label.form-label(for="img") Image Url
+                    .col-sm-10 
+                        input(type="file", name="img").form-control
+                .form-group.row 
+                    label.form-label(for="description") Description
+                    .col-sm-10 
+                        textarea#editor(name="description", cols="50", rows="3").form-control !{product.description}
+                button.btn.btn-success.mt-5  Update Product
+block script 
+    script(src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js")
+    script(src="/js/ckEditor.js") 

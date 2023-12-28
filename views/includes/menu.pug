@@ -1,0 +1,7 @@
+ul.list-group.mt-5.text-center 
+    a.list-group-item.list-group-item-action.active(href="/products", aria-current="true") Kategoriler
+    each category in categories 
+        a(href=`/products/category/${category._id}`, aria-current="true"
+         class= `${category._id == selectedCategory ? "list-group-item active" : "list-group-item"}`) #{category.name}
+     
+        

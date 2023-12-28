@@ -1,0 +1,55 @@
+extends ../layouts/main-layout
+block content
+        section.vh-100
+            .container-fluid.h-custom.mt-5
+                .row.d-flex.justify-content-center.align-items-center.h-100
+                    .col-md-9.col-lg-6.col-xl-5
+                        img(src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" alt="Sample image").img-fluid
+                    
+                    .col-md-8.col-lg-6.col-xl-4.offset-xl-1
+                        if errorMessage 
+                            .alert.alert-danger !{errorMessage}
+                        form(action="/account/login", method="post")
+
+                            .d-flex.flex-row.align-items-center.justify-content-center.justify-content-lg-start
+                                p.lead.fw-normal.mb-0.me-3 Sign in with
+                                button(type="button").btn.btn-primary.btn-floating.mx-1
+                                    i.fab.fa-facebook-f
+                                button(type="button").btn.btn-primary.btn-floating.mx-1
+                                    i.fab.fa-twitter
+
+                                button(type="button").btn.btn-primary.btn-floating.mx-1
+                                    i.fab.fa-linkedin-in
+                                
+
+                            .divider.d-flex.align-items-center.my-4
+                                p.text-center.fw-bold.mx-3.mb-0 Or
+                            
+
+                            //- <!-- Email input -->
+                            input(type="hidden", name="_csrf", value=`${csrfToken}`)
+                            .form-outline.mb-4
+                                
+                                input(type="email" placeholder="Enter a valid email address" name="email" id="email").form-control.form-control-lg
+                                label.form-label(for="email") Email address
+                            
+
+                            //- <!-- Password input -->
+                            .form-outline.mb-3
+                                input(type="password" id="password" name="password" placeholder="Enter password" ).form-control.form-control-lg
+                                label.form-label(for="password") Password
+
+                            .d-flex.justify-content-between.align-items-center
+                                //- <!-- Checkbox -->
+                                .form-check.mb-0
+                                    input.form-check-input.me-2(type="checkbox" value="" id="remember")
+                                    label.form-check-label(for="remember") Remember me
+                                    
+                            
+                                a(href="/account/reset-password").text-body Forgot password?
+                        
+
+                            .text-center.text-lg-start.mt-4.pt-2
+                                    button(type="submit" style="padding-left: 2.5rem; padding-right: 2.5rem;").btn.btn-primary.btn-lg Login 
+                                    p.small.fw-bold.mt-2.pt-1.mb-0 Don't have an account? 
+                                        a(href="/account/register" class="link-danger") Register 

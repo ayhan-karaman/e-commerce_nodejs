@@ -1,0 +1,33 @@
+extends ../layouts/main-layout
+block content
+        section.vh-100
+            .container-fluid.h-custom.mt-5
+                .row.d-flex.justify-content-center.align-items-center.h-100
+                    .col-md-9.col-lg-6.col-xl-5
+                        img(src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" alt="Sample image").img-fluid
+                    
+                    .col-md-8.col-lg-6.col-xl-4.offset-xl-1
+                        if errorMessage 
+                            .alert.alert-danger !{errorMessage}
+                        form(action="/account/register", method="post")
+                            input(type="hidden", name="_csrf", value=`${csrfToken}`)
+                            //- <!-- userName -->
+                            .form-outline.mb-4
+                                
+                                label.form-label(for="userName") User Name
+                                input(type="text" placeholder="Enter a valid User Name" name="userName" id="userName").form-control.form-control-lg
+                                
+                            //- <!-- Email input -->
+                            .form-outline.mb-4
+                                label.form-label(for="email") Email address
+                                input(type="email" placeholder="Enter a valid email address" name="email" id="email").form-control.form-control-lg
+                                
+                            //- <!-- Password input -->
+                            .form-outline.mb-3
+                                label.form-label(for="password") Password
+                                input(type="password" id="password" name="password" placeholder="Enter password" ).form-control.form-control-lg
+                                
+                            .text-center.text-lg-start.mt-4.pt-2
+                                    button(type="submit" style="padding-left: 2.5rem; padding-right: 2.5rem;").btn.btn-primary.btn-lg Registered 
+                                    p.small.fw-bold.mt-2.pt-1.mb-0 Do have an account? 
+                                        a(href="/account/login" class="link-success") Login 

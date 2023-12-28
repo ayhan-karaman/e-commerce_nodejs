@@ -1,0 +1,17 @@
+extends ../layouts/main-layout
+block content
+        section.vh-100
+            .container-fluid.h-custom.mt-5
+                .row.d-flex.justify-content-center.h-100
+                    .col-md-8.col-lg-6.col-xl-4.offset-xl-1
+                        if errorMessage 
+                            .alert.alert-danger #{errorMessage}
+                        form(action="/account/reset-password", method="post")
+                            input(type="hidden", name="_csrf", value=`${csrfToken}`)
+                            //- <!-- Email input -->
+                            .form-outline.mb-4
+                                label.form-label(for="email") Email address
+                                input(type="email" placeholder="Enter a valid email address" name="email" id="email").form-control.form-control-lg
+
+                            .text-center.text-lg-start.mt-4.pt-2
+                                    button(type="submit" style="padding-left: 2.5rem; padding-right: 2.5rem;").btn.btn-primary.btn-lg Reset Password                                

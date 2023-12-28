@@ -1,0 +1,15 @@
+mixin productCard(product)
+   
+        .card.col-md-3.my-3.mx-1(style="width:18rem")
+            img(src=`/img/${product.imgUrl}`, alt=`${product.productName}`).card-img-top
+            .card-body 
+                .card-title 
+                a(href=`/product/details/${product._id}`).card-link 
+                    h4 #{product.productName}
+                h6.text-muted  #{product.price}  TL
+            .card-footer.text-muted.justify-content-between.d-flex.p-2  
+                a.btn.btn-outline-success(href=`/product/details/${product._id}`) Details
+                form(action="/cart/add", method="post")
+                    input(type="hidden", name="_csrf", value=`${csrfToken}`)
+                    input#productId(type="hidden", value=`${product._id}` name="productId")    
+                    button(type="submit").btn.btn-success Add To Card          

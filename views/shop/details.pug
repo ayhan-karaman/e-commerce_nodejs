@@ -1,0 +1,21 @@
+extends ../layouts/main-layout
+
+block content 
+        .row.mt-4.justify-content-around.d-flex 
+            .col-md-3 
+                img(width="400" height="400" src=`/img/${product.imgUrl}`, alt="")
+            .col-md-5 
+                h2.text-center  Product Details 
+                hr
+                h3 #{product.productName}
+                .d-flex.justify-content-between.align-items-end.h-75.pb-2
+                    h4.text-muted #{product.price} TL
+                    form(action="/cart/add", method="post")
+                        input(type="hidden", name="_csrf", value=`${csrfToken}`)
+                        input#productId(type="hidden", value=`${product._id}` name="productId")    
+                        button(type="submit").btn.btn-success Add To Card   
+        .mt-2 
+        hr
+        p.p-3 !{product.description}
+
+

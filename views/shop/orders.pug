@@ -1,0 +1,39 @@
+extends ../layouts/main-layout.pug
+block content 
+    .row.d-flex.justify-content-center.mt-5
+        .col-md-8
+                if orders.length > 0
+                    each order in orders 
+                        .card.mb-5 
+                            .card-header 
+                                h3 order id: ##{order._id}
+                            table.table.table-hover 
+                                thead
+                                    tr
+                                        th Image 
+                                        th Product Name 
+                                        th Price 
+                                        th Quantity 
+                                tbody 
+                                    each item in order.items 
+                                        tr 
+                                            td 
+                                                img(src=`/img/${item.product.imgUrl}`, width="80")
+                                            td #{item.product.productName}
+                                            td #{item.product.price}
+                                            td #{item.quantity}
+                                           
+                                tfoot 
+                                        tr 
+                                            td(colspan="2") #{order.createdAt.toDateString()}
+                                            td 
+                                            - var total = 0;
+                                            each item in order.items 
+                                                - total += (item.product.price * item.quantity)
+                                            td #{total} TL
+
+
+
+                
+                else  
+                    .alert.alert-danger No Order

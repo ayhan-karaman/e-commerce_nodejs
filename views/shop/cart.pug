@@ -1,0 +1,42 @@
+extends ../layouts/main-layout.pug
+block content 
+    .row.d-flex.justify-content-center.mt-5
+        .col-md-8
+            if products.length < 1
+                .alert.alert-danger No Products
+            else
+                h3.text-muted.mt-4.mb-4.text-center User Products Page
+                table.table.table-hover.mt-3
+                    thead 
+                        tr 
+                            th Image
+                            th Product Name 
+                            th Price 
+                            th  Quantity
+                            th 
+                    tbody 
+                        each product in products 
+                            tr 
+                                td 
+                                    img(src=`/img/${product.productId.imgUrl}`, alt="" width="50")
+                                td #{product.productId.productName}
+                                td #{product.productId.price}
+                                td #{product.quantity}
+                                td 
+                                    form(action="/remove-cart-item", method="post" style="display:inline")
+                                        input(type="hidden", name="_csrf", value=`${csrfToken}`) 
+                                        input(type="hidden", name="id" value=`${product.productId.id}`)
+                                        button(type="submit").btn.btn-outline-danger
+                                            i.fas.fa-trash(style="font-size:20px" title="Delete Product")
+                    tfoot 
+                        td(colspan="4") 
+                            - var total = 0;
+                            each product in products 
+                                - total  += parseFloat(product.productId.price * product.quantity);
+                        td #{total} TL
+                .text-center 
+                    a(href="/").btn.btn-success.mx-2 Alış Verişe Devam Et
+                    form(action="/create-order", method="post" style="display:inline-block").mx-2  
+                        input(type="hidden", name="_csrf", value=`${csrfToken}`) 
+                        button(type="submit").btn.btn-primary Alış Verişi Tamamla
+

@@ -1,0 +1,44 @@
+extends ../layouts/main-layout
+
+    
+   
+block content
+    .row.d-flex.justify-content-center.my-5 
+        .col-md-6
+            if errorMessage 
+                        .alert.alert-danger !{errorMessage}
+            if categories.length > 0
+                    form(action="/admin/add-product", method="post" enctype="multipart/form-data")
+                        input(type="hidden", name="_csrf", value=`${csrfToken}`)
+                        .form-group.row 
+                            label.form-label(for="productName") Product Name
+                            .col-sm-10 
+                                input(type="text", name="productName" value=`${inputs.productName}`).form-control
+                                
+                        p.mt-3 Category
+                        .row.p3
+                            each category in categories
+                                .col-sm-3.mt-3.mb-3
+                                    .form-check
+                                        input(type="checkbox" checked = category.selected name="categoryId" class="form-check-input" value=`${category._id}`)                                
+                                        label.form-check-label #{category.name}
+                        .form-group.row 
+                            label.form-label(for="price") Price
+                            .col-sm-10  
+                                input(type="text", name="price", value=`${inputs.price}`).form-control
+                        .form-group.row 
+                            label.form-label(for="img") Image Url
+                            .col-sm-10 
+                                input(type="file", name="img").form-control
+                        .form-group.row 
+                            label.form-label(for="description") Description
+                            .col-sm-10 
+                                textarea(name="description", id="editor" cols="50", rows="3").form-control  !{inputs.description}
+                        button.btn.btn-success.mt-5  Add Product
+            else 
+                .alert.alert-danger.text-center.mb-5 You cannot add a Product because the category does not exist
+                    a(href="/admin/add-category" style="font-size:20px; display:block").text-center.text-success.mt-5 To add a category, go to the add page
+block script 
+    script(src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js")
+    script(src="/js/ckEditor.js")  
+

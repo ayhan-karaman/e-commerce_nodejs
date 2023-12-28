@@ -1,0 +1,17 @@
+extends ../layouts/main-layout
+block content
+    .row.d-flex.justify-content-center.my-5 
+        .col-md-6
+            form(action="/admin/update-category", method="post")
+                input(type="hidden", name="_csrf", value=`${csrfToken}`)
+                input(type="hidden", name="id", value=`${category._id}`)
+                .form-group.row 
+                    label.form-label(for="name") Category Name
+                    .col-sm-10 
+                        input(type="text", value=`${category.name}` name="name").form-control
+                .form-group.row 
+                    label.form-label(for="description") Description
+                    .col-sm-10 
+                        textarea#description(name="description", cols="50", rows="3").form-control #{category.description}
+                button.btn.btn-success.mt-5  Update Category
+    

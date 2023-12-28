@@ -1,0 +1,43 @@
+extends ../layouts/main-layout.pug
+block content 
+    .row.d-flex.justify-content-center.mt-5
+        .col-md-8
+            if (action !== 'undefined' && action === 'delete')
+                div.alert.alert-danger The product has been deleted.
+
+            if (action !== 'undefined' && action === 'edit')
+                div.alert.alert-warning The product has been updated.
+
+            if (action !== 'undefined' && action === 'added')
+                div.alert.alert-success The product has been added.
+
+            if products.length > 0
+                    h3.text-muted.mt-4.mb-4.text-center Admin Products Page
+                    table.table.table-hover.mt-3
+                        thead 
+                            tr 
+                                th Image
+                                th Product Name 
+                                th Price 
+                                th(colspan="4") 
+                                    a(href="/admin/add-product", style="text-decoration:none; font-size:30px").text-success + 
+                                        small(style="font-size:13px").text-dark  Add New Product
+                        tbody 
+                            each product in products 
+                                tr 
+                                    td 
+                                        img(src=`/img/${product.imgUrl}`, alt="" width="50")
+                                    td #{product.productName}
+                                    td #{product.price}
+                                    td 
+                                        a(href=`/admin/update-product/${product.id}`).btn.btn-outline-warning 
+                                            i.fas.fa-edit(style="font-size:20px" title="Update Product")
+                                            
+                                        form(action="/admin/delete-product", method="post" style="display:inline") 
+                                            input(type="hidden", name="_csrf", value=`${csrfToken}`)
+                                            input(type="hidden", name="id" value=`${product._id}`)
+                                            button(type="submit").btn.btn-outline-danger
+                                                i.fas.fa-trash(style="font-size:20px" title="Delete Product")
+            else 
+                    .alert.alert-danger.text-center.mb-5 Not Product
+                    a(href="/admin/add-product" style="font-size:20px; display:block").text-center.text-success.mt-5 To add a product, go to the add page 

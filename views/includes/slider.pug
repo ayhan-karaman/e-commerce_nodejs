@@ -1,0 +1,14 @@
+#myCarousel.carousel.slide(data-bs-ride="carousel").mt-4
+    .carousel-inner 
+        .carousel-item.active.p-3 
+            img(width="500" height="300" src="/img/s1.jpg").d-block.w-100
+        .carousel-item.p-3  
+            img(width="500" height="300" src="/img/s2.png").d-block.w-100
+        .carousel-item.p-3  
+            img(width="500" height="300" src="/img/s3.jpg").d-block.w-100
+    button.carousel-control-prev(type="button", data-bs-target="#myCarousel", data-bs-slide="prev")
+        span.carousel-control-prev-icon(aria-hidden="true")
+        span.visually-hidden Previous 
+    button.carousel-control-next(type="button", data-bs-target="#myCarousel", data-bs-slide="next")
+        span.carousel-control-next-icon(aria-hidden="true")
+        span.visually-hidden Next 
